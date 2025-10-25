@@ -4,7 +4,10 @@ ML model for Credit risk Prediction
 
 ## Live Demo
 
-You can try the app here: [Credit Risk Analyzer](https://smritisars.github.io/Credit_Risk_Analyzer/)
+Live dashboard hosted on github: [Credit Risk Analyzer](https://smritisars.github.io/Credit_Risk_Analyzer/)
+
+## Preview
+![Credit Risk Analyzer](assets/scorer.png) 
 # Credit Risk Analyzer for Commercial Banking
 
 A comprehensive credit risk analysis tool built with the Lending Club dataset, designed to demonstrate advanced risk modeling capabilities for commercial banking roles.
