@@ -284,4 +284,3 @@ This project is designed for educational and portfolio demonstration purposes. F
 
 ---
 
-*Built with ❤️ for commercial banking and risk management professionals*
