@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk Analyzer - Commercial Banking</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-placeholder">
+                    <h3>CRA Banking</h3>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="home">
+                    <span>📊</span>
+                    Portfolio Overview
+                </a>
+                <a href="#" class="nav-item" data-tab="scorer">
+                    <span>🎯</span>
+                    Loan Application Scorer
+                </a>
+                <a href="#" class="nav-item" data-tab="analytics">
+                    <span>📈</span>
+                    Portfolio Analytics
+                </a>
+                <a href="#" class="nav-item" data-tab="monitoring">
+                    <span>⚠️</span>
+                    Risk Monitoring
+                </a>
+                <a href="#" class="nav-item" data-tab="performance">
+                    <span>🎛️</span>
+                    Model Performance
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Credit Risk Analyzer for Commercial Banking</h1>
+            </header>
+
+            <!-- Home Tab -->
+            <div id="home" class="tab-content active">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Total Loans</h3>
+                        <div class="metric-value">1,000</div>
+                        <div class="metric-subtitle">Active Loans</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Total Exposure</h3>
+                        <div class="metric-value">$19.7M</div>
+                        <div class="metric-subtitle">Portfolio Value</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Average Default Rate</h3>
+                        <div class="metric-value">20.6%</div>
+                        <div class="metric-subtitle">Historical Average</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Expected Loss</h3>
+                        <div class="metric-value">$1.8M</div>
+                        <div class="metric-subtitle">Total Risk Exposure</div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Portfolio Risk Grade Distribution</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="gradeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Recent Loan Applications</h3>
+                        </div>
+                        <div class="card__body">
+                            <table class="loan-table">
+                                <thead>
+                                    <tr>
+                                        <th>Loan ID</th>
+                                        <th>Amount</th>
+                                        <th>Grade</th>
+                                        <th>Default Prob</th>
+                                        <th>Purpose</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentLoansTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Risk Heat Map</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="heatMapChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Application Scorer Tab -->
+            <div id="scorer" class="tab-content">
+                <div class="scorer-grid">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Loan Application Details</h3>
+                        </div>
+                        <div class="card__body">
+                            <form id="scorerForm" class="scorer-form">
+                                <div class="form-group">
+                                    <label class="form-label">Loan Amount</label>
+                                    <input type="range" id="loanAmount" min="1000" max="40000" value="15000" class="form-control">
+                                    <span id="loanAmountValue">$15,000</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Annual Income</label>
+                                    <input type="number" id="annualIncome" value="50000" class="form-control" min="10000" max="200000">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Debt-to-Income Ratio</label>
+                                    <input type="range" id="dtiRatio" min="0" max="50" value="15" class="form-control">
+                                    <span id="dtiRatioValue">15%</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Employment Length</label>
+                                    <select id="empLength" class="form-control">
+                                        <option value="0">Less than 1 year</option>
+                                        <option value="1">1 year</option>
+                                        <option value="2" selected>2 years</option>
+                                        <option value="3">3 years</option>
+                                        <option value="5">5 years</option>
+                                        <option value="10">10+ years</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Home Ownership</label>
+                                    <div class="radio-group">
+                                        <label><input type="radio" name="homeOwnership" value="RENT" checked> Rent</label>
+                                        <label><input type="radio" name="homeOwnership" value="OWN"> Own</label>
+                                        <label><input type="radio" name="homeOwnership" value="MORTGAGE"> Mortgage</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Loan Purpose</label>
+                                    <select id="loanPurpose" class="form-control">
+                                        <option value="debt_consolidation">Debt Consolidation</option>
+                                        <option value="credit_card">Credit Card</option>
+                                        <option value="home_improvement">Home Improvement</option>
+                                        <option value="other">Other</option>
+                                        <option value="major_purchase">Major Purchase</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Credit Grade</label>
+                                    <select id="creditGrade" class="form-control">
+                                        <option value="A">A - Excellent</option>
+                                        <option value="B" selected>B - Very Good</option>
+                                        <option value="C">C - Good</option>
+                                        <option value="D">D - Fair</option>
+                                        <option value="E">E - Poor</option>
+                                        <option value="F">F - Very Poor</option>
+                                        <option value="G">G - Bad</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Interest Rate</label>
+                                    <input type="range" id="interestRate" min="5" max="25" value="12" step="0.1" class="form-control">
+                                    <span id="interestRateValue">12.0%</span>
+                                </div>
+
+                                <button type="button" id="calculateRisk" class="btn btn--primary btn--full-width">
+                                    Calculate Risk Score
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Risk Assessment Results</h3>
+                        </div>
+                        <div class="card__body">
+                            <div id="resultsSection" class="results-section hidden">
+                                <div class="result-metric">
+                                    <h4>Default Probability</h4>
+                                    <div id="defaultProb" class="result-value">-</div>
+                                </div>
+                                <div class="result-metric">
+                                    <h4>Credit Score</h4>
+                                    <div id="creditScore" class="result-value">-</div>
+                                </div>
+                                <div class="result-metric">
+                                    <h4>Risk Grade</h4>
+                                    <div id="riskGrade" class="result-value">-</div>
+                                </div>
+                                <div class="result-metric">
+                                    <h4>Expected Loss</h4>
+                                    <div id="expectedLoss" class="result-value">-</div>
+                                </div>
+                                <div class="result-metric">
+                                    <h4>Recommendation</h4>
+                                    <div id="recommendation" class="result-value">-</div>
+                                </div>
+                            </div>
+                            <div id="placeholder" class="placeholder">
+                                Enter loan details and click "Calculate Risk Score" to see results.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Analytics Tab -->
+            <div id="analytics" class="tab-content">
+                <div class="analytics-filters">
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="flex gap-16">
+                                <select id="gradeFilter" class="form-control">
+                                    <option value="">All Grades</option>
+                                    <option value="A">Grade A</option>
+                                    <option value="B">Grade B</option>
+                                    <option value="C">Grade C</option>
+                                    <option value="D">Grade D</option>
+                                </select>
+                                <select id="purposeFilter" class="form-control">
+                                    <option value="">All Purposes</option>
+                                    <option value="debt_consolidation">Debt Consolidation</option>
+                                    <option value="credit_card">Credit Card</option>
+                                    <option value="home_improvement">Home Improvement</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Portfolio by Loan Grade</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="portfolioGradeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Portfolio by Purpose</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="portfolioPurposeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Risk Distribution Histogram</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="riskDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Monitoring Tab -->
+            <div id="monitoring" class="tab-content">
+                <div class="charts-grid">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Monthly Default Rates</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="defaultRatesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Portfolio Value Trends</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="portfolioValueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Risk Alerts</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="alert-list">
+                            <div class="alert alert-warning">
+                                <strong>High Default Rate:</strong> Default rate for Grade D loans has increased to 45% this month.
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>Portfolio Growth:</strong> New loan originations up 15% from last month.
+                            </div>
+                            <div class="alert alert-success">
+                                <strong>Model Performance:</strong> Risk prediction accuracy remains stable at 74%.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Performance Tab -->
+            <div id="performance" class="tab-content">
+                <div class="performance-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <h3>AUC (Logistic Regression)</h3>
+                            <div class="metric-value">0.741</div>
+                            <div class="metric-subtitle">Area Under Curve</div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>AUC (Random Forest)</h3>
+                            <div class="metric-value">0.700</div>
+                            <div class="metric-subtitle">Area Under Curve</div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Gini Coefficient</h3>
+                            <div class="metric-value">0.481</div>
+                            <div class="metric-subtitle">Model Discrimination</div>
+                        </div>
+                        <div class="metric-card">
+                            <h3>KS Statistic</h3>
+                            <div class="metric-value">0.42</div>
+                            <div class="metric-subtitle">Separation Power</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Feature Importance</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 400px;">
+                                <canvas id="featureImportanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Model Comparison</h3>
+                        </div>
+                        <div class="card__body">
+                            <table class="model-comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>AUC</th>
+                                        <th>Gini</th>
+                                        <th>Accuracy</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Logistic Regression</td>
+                                        <td>0.741</td>
+                                        <td>0.481</td>
+                                        <td>72.5%</td>
+                                        <td><span class="status status--success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Random Forest</td>
+                                        <td>0.700</td>
+                                        <td>0.399</td>
+                                        <td>68.2%</td>
+                                        <td><span class="status status--info">Backup</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
