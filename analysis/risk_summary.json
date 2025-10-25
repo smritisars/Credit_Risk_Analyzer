@@ -1,1 +1,15 @@
-
+{
+  "total_loans": 1000,
+  "total_exposure": 19707696.59960401,
+  "avg_default_prob": 0.2061399377417736,
+  "total_expected_loss": 1805517.7762111397,
+  "high_risk_count": 211,
+  "avg_credit_score": 736.117,
+  "grade_distribution": {
+    "B": 333,
+    "C": 249,
+    "A": 207,
+    "D": 199,
+    "E": 12
+  }
+}
