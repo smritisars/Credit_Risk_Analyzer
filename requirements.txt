@@ -1,1 +1,59 @@
+# Core Data Science Libraries
+pandas==2.1.3
+numpy==1.24.3
+scipy==1.11.4
 
+# Machine Learning
+scikit-learn==1.3.2
+xgboost==2.0.1
+lightgbm==4.1.0
+catboost==1.2.2
+
+# Data Visualization
+matplotlib==3.8.2
+seaborn==0.13.0
+plotly==5.17.0
+
+# Web Framework (Optional - for Streamlit version)
+streamlit==1.28.2
+streamlit-aggrid==0.3.4
+streamlit-plotly==0.0.1
+
+# Model Persistence
+pickle-mixin==1.0.2
+joblib==1.3.2
+
+# Statistical Analysis
+statsmodels==0.14.0
+shap==0.43.0
+
+# Data Processing
+feature-engine==1.6.2
+imbalanced-learn==0.11.0
+category-encoders==2.6.3
+
+# Utilities
+tqdm==4.66.1
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Development Tools
+jupyter==1.0.0
+ipykernel==6.26.0
+notebook==7.0.6
+
+# Testing (Optional)
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# Configuration Management
+python-dotenv==1.0.0
+pyyaml==6.0.1
+
+# Performance Monitoring
+memory-profiler==0.61.0
+line-profiler==4.1.1
+
+# Documentation
+sphinx==7.2.6
+sphinx-rtd-theme==1.3.0
